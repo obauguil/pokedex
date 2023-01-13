@@ -1,4 +1,4 @@
-package com.kfaraj.samples.pokedex.ui
+package com.kfaraj.samples.pokedex.ui.pokedex
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter

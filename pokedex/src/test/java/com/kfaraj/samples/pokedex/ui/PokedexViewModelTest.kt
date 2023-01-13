@@ -8,6 +8,8 @@ import com.kfaraj.samples.pokedex.domain.GetSpriteUseCase
 import com.kfaraj.samples.pokedex.testutils.MainDispatcherRule
 import com.kfaraj.samples.pokedex.testutils.TestItemCallback
 import com.kfaraj.samples.pokedex.testutils.TestListUpdateCallback
+import com.kfaraj.samples.pokedex.ui.pokedex.PokedexItemUiState
+import com.kfaraj.samples.pokedex.ui.pokedex.PokedexViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest

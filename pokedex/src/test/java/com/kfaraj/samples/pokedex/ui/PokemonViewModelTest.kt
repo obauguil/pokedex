@@ -5,6 +5,8 @@ import com.kfaraj.samples.pokedex.data.Pokemon
 import com.kfaraj.samples.pokedex.data.PokemonsRepository
 import com.kfaraj.samples.pokedex.domain.GetSpriteUseCase
 import com.kfaraj.samples.pokedex.testutils.MainDispatcherRule
+import com.kfaraj.samples.pokedex.ui.pokemon.PokemonUiState
+import com.kfaraj.samples.pokedex.ui.pokemon.PokemonViewModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule

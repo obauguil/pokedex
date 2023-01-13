@@ -1,4 +1,4 @@
-package com.kfaraj.samples.pokedex.ui
+package com.kfaraj.samples.pokedex.ui.pokemon
 
 /**
  * Contains the Pokémon UI state.

@@ -1,4 +1,4 @@
-package com.kfaraj.samples.pokedex.ui
+package com.kfaraj.samples.pokedex.ui.pokemon
 
 import android.graphics.Color
 import android.os.Bundle

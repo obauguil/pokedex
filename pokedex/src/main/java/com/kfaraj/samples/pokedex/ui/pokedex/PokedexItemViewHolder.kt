@@ -1,4 +1,4 @@
-package com.kfaraj.samples.pokedex.ui
+package com.kfaraj.samples.pokedex.ui.pokedex
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

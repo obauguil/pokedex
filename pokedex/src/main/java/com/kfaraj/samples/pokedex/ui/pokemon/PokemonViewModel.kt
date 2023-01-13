@@ -1,4 +1,4 @@
-package com.kfaraj.samples.pokedex.ui
+package com.kfaraj.samples.pokedex.ui.pokemon
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

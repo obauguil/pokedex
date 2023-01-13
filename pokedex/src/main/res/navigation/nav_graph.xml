@@ -5,7 +5,7 @@
     app:startDestination="@id/pokedex">
     <fragment
         android:id="@+id/pokedex"
-        android:name="com.kfaraj.samples.pokedex.ui.PokedexFragment"
+        android:name="com.kfaraj.samples.pokedex.ui.pokedex.PokedexFragment"
         android:label="@string/app_name">
         <action
             android:id="@+id/action_pokedex_to_pokemon"
@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/pokemon"
-        android:name="com.kfaraj.samples.pokedex.ui.PokemonFragment"
+        android:name="com.kfaraj.samples.pokedex.ui.pokemon.PokemonFragment"
         android:label="@string/empty">
         <argument
             android:name="id"
