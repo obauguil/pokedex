@@ -5,10 +5,11 @@ import com.kfaraj.samples.pokedex.data.Pokemon
 import com.kfaraj.samples.pokedex.data.PokemonsRepository
 import com.kfaraj.samples.pokedex.domain.GetSpriteUseCase
 import com.kfaraj.samples.pokedex.testutils.MainDispatcherRule
+import com.kfaraj.samples.pokedex.ui.pokedex.PokedexItemUiState
 import com.kfaraj.samples.pokedex.ui.pokemon.PokemonUiState
 import com.kfaraj.samples.pokedex.ui.pokemon.PokemonViewModel
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -19,27 +20,42 @@ class PokemonViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    @Test
-    fun uiState() = runTest {
-        val savedStateHandle = SavedStateHandle(mapOf("id" to 1))
-        val pokemonsRepository = mock<PokemonsRepository>().apply {
-            whenever(get(1)).thenReturn(BULBASAUR)
-        }
-        val getSpriteUseCase = mock<GetSpriteUseCase>().apply {
-            whenever(invoke(1)).thenReturn("/1.png")
-        }
-        val viewModel = PokemonViewModel(
-            savedStateHandle,
-            pokemonsRepository,
-            getSpriteUseCase
+    private lateinit var fakeSavedStateHandle: SavedStateHandle
+    private lateinit var fakeGetSpriteUseCase: GetSpriteUseCase
+    private lateinit var fakePokemonsRepository: PokemonsRepository
+    private lateinit var fakePokemonUiState: PokemonUiState
+    private lateinit var fakeViewModel: PokemonViewModel
+
+    @Before
+    suspend fun init() {
+        fakeSavedStateHandle = mock()
+        fakeGetSpriteUseCase = mock()
+
+        fakePokemonUiState = PokemonUiState(
+            PIKACHU.id,
+            PIKACHU.name,
+            fakeGetSpriteUseCase.invoke(PIKACHU.id)
         )
-        val result = viewModel.uiState.value
-        assertEquals(BULBASAUR_UI_STATE, result)
+
+        fakePokemonsRepository = mock<PokemonsRepository>().apply {
+            whenever(get(1)).thenReturn(PIKACHU)
+        }
+
+        fakeViewModel = PokemonViewModel(
+            fakeSavedStateHandle,
+            fakePokemonsRepository,
+            fakeGetSpriteUseCase
+        )
+    }
+
+    @Test
+    fun uiStateTest() = runTest {
+        assert(fakeViewModel.uiState.value == fakePokemonUiState)
     }
 
     companion object {
-        private val BULBASAUR = Pokemon(1, "bulbasaur")
-        private val BULBASAUR_UI_STATE = PokemonUiState(1, "bulbasaur", "/1.png")
+        private val PIKACHU = Pokemon(25, "Pikachu")
+        private val MEW = Pokemon(151, "Mew")
     }
 
 }
