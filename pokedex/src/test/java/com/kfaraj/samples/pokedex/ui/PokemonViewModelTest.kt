@@ -8,10 +8,13 @@ import com.kfaraj.samples.pokedex.testutils.MainDispatcherRule
 import com.kfaraj.samples.pokedex.ui.pokedex.PokedexItemUiState
 import com.kfaraj.samples.pokedex.ui.pokemon.PokemonUiState
 import com.kfaraj.samples.pokedex.ui.pokemon.PokemonViewModel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
@@ -23,22 +26,18 @@ class PokemonViewModelTest {
     private lateinit var fakeSavedStateHandle: SavedStateHandle
     private lateinit var fakeGetSpriteUseCase: GetSpriteUseCase
     private lateinit var fakePokemonsRepository: PokemonsRepository
-    private lateinit var fakePokemonUiState: PokemonUiState
     private lateinit var fakeViewModel: PokemonViewModel
 
     @Before
-    suspend fun init() {
-        fakeSavedStateHandle = mock()
-        fakeGetSpriteUseCase = mock()
+    fun initTest() = runTest{
 
-        fakePokemonUiState = PokemonUiState(
-            PIKACHU.id,
-            PIKACHU.name,
-            fakeGetSpriteUseCase.invoke(PIKACHU.id)
-        )
+        fakeSavedStateHandle = mock<SavedStateHandle>()
+        fakeGetSpriteUseCase = mock<GetSpriteUseCase>().apply {
+            whenever(invoke(any())).thenReturn(SPRITE)
+        }
 
         fakePokemonsRepository = mock<PokemonsRepository>().apply {
-            whenever(get(1)).thenReturn(PIKACHU)
+            whenever(get(any())).thenReturn(PIKACHU)
         }
 
         fakeViewModel = PokemonViewModel(
@@ -46,16 +45,18 @@ class PokemonViewModelTest {
             fakePokemonsRepository,
             fakeGetSpriteUseCase
         )
+
     }
 
     @Test
     fun uiStateTest() = runTest {
-        assert(fakeViewModel.uiState.value == fakePokemonUiState)
+        assertEquals(PIKA_UI_STATE, fakeViewModel.uiState.value)
     }
 
     companion object {
+        private const val SPRITE = "spriteUseCase"
         private val PIKACHU = Pokemon(25, "Pikachu")
-        private val MEW = Pokemon(151, "Mew")
+        private val PIKA_UI_STATE = PokemonUiState(PIKACHU.id, PIKACHU.name, SPRITE)
     }
 
 }

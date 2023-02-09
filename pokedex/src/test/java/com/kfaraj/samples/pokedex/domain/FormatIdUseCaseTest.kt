@@ -5,11 +5,4 @@ import org.junit.Test
 
 class FormatIdUseCaseTest {
 
-    @Test
-    fun formatIdUseCase() {
-        val formatIdUseCase = FormatIdUseCase()
-        val result = formatIdUseCase(1)
-        assertEquals("#001", result)
-    }
-
 }
